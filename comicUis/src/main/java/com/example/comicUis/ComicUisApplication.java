@@ -1,4 +1,4 @@
-package com.entornos.comicUis;
+package com.example.comicUis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
