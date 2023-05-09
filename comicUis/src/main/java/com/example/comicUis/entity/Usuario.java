@@ -1,18 +1,19 @@
 package com.example.comicUis.entity;
-
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "usuario")
@@ -31,15 +32,15 @@ public class Usuario implements Serializable {
     private String apellidos;
     private String correo;
     private String password;
-    private int identificacion;
-    private String telefono;
-    private String direccion;
-    private Date fechaNacimiento;
     private String rol;
-    /** 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    private Rol rol;
-*/
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "usuario")
+    private List<Comentarios> comentarios;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE, mappedBy = "usuario")
+    private List<ProgresoLectura> progresoLecturas;
 
 
     public int getIdUsuario() {
@@ -82,47 +83,7 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public int getIdentificacion() {
-        return identificacion;
-    }
-
-    public void setIdentificacion(int identificacion) {
-        this.identificacion = identificacion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-    /** 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-*/
-
+ 
 
     public String getRol() {
         return rol;
@@ -130,6 +91,22 @@ public class Usuario implements Serializable {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public List<Comentarios> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentarios> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public List<ProgresoLectura> getProgresoLecturas() {
+        return progresoLecturas;
+    }
+
+    public void setProgresoLecturas(List<ProgresoLectura> progresoLecturas) {
+        this.progresoLecturas = progresoLecturas;
     } 
 
     
